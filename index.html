@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: rgb(5, 4, 46);
+            color: white;
+            text-shadow: 0 0 10px currentColor;
+            height: 100vh;
+            gap: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 50px;
+
+            & .content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                & .add {
+                    color: rgb(33, 255, 33);
+                }
+
+                & .edit {
+                    color: rgb(33, 166, 255);
+                }
+
+                & .del {
+                    color: rgb(255, 48, 33);
+                }
+
+                & .cont1 {
+                    display: flex;
+                    gap: 10px;
+
+                    & button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 2px;
+                        padding: 7px;
+                        transition: all .3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: rgb(62, 248, 62);
+                            transform: scale(1.15);
+                            box-shadow: 0 0 5px 2px rgb(62, 248, 62);
+                        }
+                    }
+                }
+
+                & .cont2 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+
+                    & div {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    & button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 2px;
+                        padding: 7px;
+                        transition: all .3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: rgb(33, 166, 255);
+                            transform: scale(1.15);
+                            box-shadow: 0 0 5px 2px rgb(33, 166, 255);
+                        }
+                    }
+                }
+
+                & .cont3 {
+                    display: flex;
+                    gap: 10px;
+
+                    & button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 2px;
+                        padding: 7px;
+                        transition: all .3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: rgb(255, 48, 33);
+                            transform: scale(1.15);
+                            box-shadow: 0 0 5px 2px rgb(255, 48, 33);
+                        }
+                    }
+                }
+
+                h2 {
+                    white-space: nowrap;
+                    width: 100%;
+                    overflow: hidden;
+                    animation: anmt 1s linear forwards;
+                }
+
+                & input {
+                    background-color: transparent;
+                    border: none;
+                    border-radius: 2px;
+                    border-bottom: 1px solid white;
+                    box-shadow: 0 2px 3px 0 rgba(255, 255, 255, 0.274);
+                    color: white;
+                }
+            }
+        }
+
+        body::-webkit-scrollbar {
+            width: 8.5px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: rgb(97, 94, 247);
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: rgb(68, 66, 226);
+        }
+
+        @keyframes anmt {
+            from {
+                width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <h2 class="add">Add Element</h2>
+            <div class="cont1">
+                <input type="text" id="add" placeholder="Element to add">
+                <button onclick="Add()">Add</button>
+            </div>
+        </div>
+        <div class="content">
+            <h2 class="edit">Edit Element</h2>
+            <div class="cont2">
+                <div>
+                    <input type="text" id="edit" placeholder="Element to change">
+                    <input type="text" id="edit2" placeholder="Element to replace">
+                </div>
+                <button onclick="Edit()">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <h2 class="del">Delete Element</h2>
+            <div class="cont3">
+                <input type="text" id="delete" placeholder="Element to delete">
+                <button onclick="Delete()">Delete</button>
+            </div>
+        </div>
+    </div>
+    <h1 id="Output"></h1>
+    <script>
+        let arr = []
+
+        const Output = () => {
+            document.querySelector('#Output').textContent = JSON.stringify(arr);
+        }
+
+        const Add = () => {
+            const elementToAdd = document.querySelector('#add').value
+            if (elementToAdd) {
+                arr.push(elementToAdd)
+                document.querySelector('#add').value = ''
+                Output()
+            }
+        }
+
+        const Edit = () => {
+            const edit = document.querySelector('#edit').value
+            const edit2 = document.querySelector('#edit2').value
+            const index = arr.indexOf(edit)
+            if (index != -1 && edit) {
+                arr[index] = edit2
+                document.querySelector('#edit').value = ''
+                document.querySelector('#edit2').value = ''
+                Output()
+            }
+
+
+        }
+
+        const Delete = () => {
+            const del = document.querySelector('#delete').value
+            const index = arr.indexOf(del)
+            if (index != -1 && del) {
+                arr.splice(index, 1)
+                document.querySelector('#delete').value = ''
+                Output()
+            }
+        }
+        Output()
+    </script>
+</body>
+
+</html>
